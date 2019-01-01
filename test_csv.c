@@ -27,7 +27,7 @@ struct
     "/Users/chenzhiguo/Documents/Project/C/student_database.csv", //Replace user_name with your computer username For windows use the approriate file path
     0,
     0,
-    0};
+    0}; // 全局变量
 
 typedef struct person
 {
@@ -37,7 +37,7 @@ typedef struct person
     char gender[20];
     char id[30];
     int height;
-} Person;
+} Person; // struct defination
 
 void group_by_height(Person student_group[], int group_length);
 
@@ -48,17 +48,13 @@ Person class_group_3[100];
 
 int main()
 {
-    _readFile();
-    // for (int a = 0; a < global.class3_number; a++)
-    // {
-    //     printf("name is %s\n", class_group_3[a].name);
-    // }
+    _readFile(); // read data from csv file in this dictionary
     int code = -1;
 
     while (code != 0)
     {
         instructions();
-        scanf("%d", &code);
+        scanf("%d", &code); // input command to do something
         switch (code)
         {
         case 1:
@@ -77,16 +73,15 @@ int main()
             code = 0;
             break;
         default:
-            printf("\nKodi i gabuar!!\n");
+            printf("\nEnd program!!\n");
             code = 0;
             break;
         }
     }
-    group_by_height(class_group_2, global.class2_number);
     return 0;
 }
 
-int group_by_class()
+int group_by_class() // group by class
 {
     int index_2 = 0, index_3 = 0;
     for (int i = 0; i < global.nr; i++)
@@ -97,7 +92,6 @@ int group_by_class()
                    database[i].name, database[i].gender, database[i].id, database[i].height);
             class_group_2[index_2] = database[i];
             index_2++;
-            // return i;
         }
         if (strcmp("通信工程三班", database[i].class) == 0)
         {
@@ -105,7 +99,6 @@ int group_by_class()
                    database[i].name, database[i].gender, database[i].id, database[i].height);
             class_group_3[index_3] = database[i];
             index_3++;
-            // return i;
         }
     }
     global.class2_number = index_2;
@@ -113,12 +106,9 @@ int group_by_class()
     return -1;
 }
 
-void handle_group_by_height()
+void handle_group_by_height() // get command from std in
 {
-    // if (class_group_2[0].id == NULL)
-    // {
-    //     printf("Please group by class first!\n");
-    // }
+    printf("Please group by class fisrt!\n");
     printf("Type 2 to group class 2 by height.\n");
     printf("Type 3 to group class 3 by height.\n");
     printf("Your command is: ");
@@ -130,9 +120,11 @@ void handle_group_by_height()
         {
         case 2:
             group_by_height(class_group_2, global.class2_number);
+            code = 0;
             break;
         case 3:
             group_by_height(class_group_3, global.class3_number);
+            code = 0;
             break;
         case 0:
             code = 0;
@@ -145,7 +137,7 @@ void handle_group_by_height()
     }
 }
 
-void group_by_height(Person student_group[], int group_length)
+void group_by_height(Person student_group[], int group_length) // group by height in class
 {
     int heights[6];
     int heights_index = 0;
@@ -157,7 +149,7 @@ void group_by_height(Person student_group[], int group_length)
         if (heights_index == 0)
         {
             heights[0] = height_group;
-            heights_number[0]++;
+            // heights_number[0]++;
             heights_index++;
             student_groups[0][0] = student_group[index];
         }
@@ -168,17 +160,16 @@ void group_by_height(Person student_group[], int group_length)
             {
                 if (heights[_index] == height_group)
                 {
-                    student_groups[_index][heights_number[_index]] = student_group[index];
                     heights_number[_index]++;
+                    student_groups[_index][heights_number[_index]] = student_group[index];
                     is_existing = true;
                     break;
                 }
             }
             if (!is_existing)
             {
-                heights[++heights_index] = height_group;
+                heights[heights_index++] = height_group;
                 student_groups[heights_index][heights_number[0]] = student_group[index];
-                heights_number[heights_index]++;
             }
         }
     }
@@ -194,7 +185,7 @@ void group_by_height(Person student_group[], int group_length)
     printf("================== End ======================\n");
 }
 
-void _readFile()
+void _readFile() //read data from csv file
 {
     char buffer[1024];
     char storage[1024];
