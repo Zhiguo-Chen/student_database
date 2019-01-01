@@ -24,7 +24,7 @@ struct
     int class3_number;
 } global = {
     NULL,
-    "/Users/chenzhiguo/Documents/Project/C/student_database.csv", //Replace user_name with your computer username For windows use the approriate file path
+    "./test.csv", //Replace user_name with your computer username For windows use the approriate file path
     0,
     0,
     0}; // 全局变量
@@ -191,7 +191,7 @@ void _readFile() //read data from csv file
     char storage[1024];
     char *record, *line;
     int i = 0, j = 0;
-    FILE *fstream = fopen("./test.csv", "rb");
+    FILE *fstream = fopen(global.path, "rb");
 
     while ((line = fgets(buffer, sizeof(buffer), fstream)) != NULL)
     {
